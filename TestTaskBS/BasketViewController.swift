@@ -21,14 +21,14 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: - Structures
     struct Menu {
         var sectionName: String!
-        var contentSection: [String]!
+        var contentSection: [String]?
     }
     
     let menuArray: [Menu] = [Menu(sectionName: "Контактная информация", contentSection: ["Телефон","Имя","E-mail"]),
-                             Menu(sectionName: "Доставка и оплата", contentSection: ["Страна","Город","Улица", "Дом", "Квартира"]),
-                             Menu(sectionName: "Специальные предложения", contentSection: ["","",""]),
-                             Menu(sectionName: "Товаров(2)", contentSection: ["","",""]),
-                             Menu(sectionName: "Ячейка с кнопкой", contentSection: ["","",""])]
+                             Menu(sectionName: "Доставка и оплата", contentSection: ["Индекс","Адрес", "Ближайшее метро"]),
+                             Menu(sectionName: "Специальные предложения", contentSection: nil),
+                             Menu(sectionName: "Товаров", contentSection: nil),
+                             Menu(sectionName: "Ячейка с кнопкой", contentSection: nil)]
     
     struct User {
         var name: String!
@@ -80,70 +80,98 @@ class BasketViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 2 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellForSpecialOffer", for: indexPath) as! SpecialOfferTableViewCell
-            cell.offerLabel.text = "\(userArray[0].name!), при покупке “\(userArray[0].clotherName[0])” вы можете преобрести шапку со скидкой 5"
-            cell.nameOfSection.text = menuArray[indexPath.row].sectionName
+            
+            cell.sectionNameLabel.text = menuArray[indexPath.row].sectionName
+            cell.specialOfferLabel.text = "\(userArray[0].name!), при покупке “\(userArray[0].clotherName[0])” вы можете преобрести шапку со скидкой 5"
+            
             return cell
+            
         } else if indexPath.row == menuArray.count-1 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellForOffer", for: indexPath) as! OfferTableViewCell
+            
             return cell
         } else if indexPath.row == 3 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellForProduct", for: indexPath) as! ProductTableViewCell
+            
+            cell.sectionNameLabel.text = menuArray[indexPath.row].sectionName  + " (\(userArray[0].clotherName.count))"
             cell.someImage.image = UIImage(named: userArray[0].clotherImage[0])
+            
+            
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellForPersonalInformation", for: indexPath) as! OrderingTableViewCell
-            cell.nameOfSection.text = menuArray[indexPath.row].sectionName
-            cell.phoneNumberTF.text = menuArray[indexPath.row].contentSection[0]
-            cell.nameTF.text = menuArray[indexPath.row].contentSection[1]
-            cell.emailTF.text = menuArray[indexPath.row].contentSection[2]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CellForPersonalInformation", for: indexPath) as! PersonalInformationTableViewCell
+            
+            cell.sectionNameLabel.text = menuArray[indexPath.row].sectionName
+            cell.firstTextField.placeholder = menuArray[indexPath.row].contentSection?[0]
+            cell.secondTextField.placeholder = menuArray[indexPath.row].contentSection?[1]
+            cell.thirdTextField.placeholder = menuArray[indexPath.row].contentSection?[2]
+            if indexPath.row == 0 {
+                cell.sectionImage.image = UIImage(cgImage: (cell.sectionImage.image!.cgImage!), scale: CGFloat(1.0), orientation: .right)
+            }
+            
             return cell
         }
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectedIndex == indexPath.row {
-        } else {
-            if indexPath.row == menuArray.count-1 {
-            } else {
-                selectedIndex = indexPath.row
-            }
+        if selectedIndex != indexPath.row && indexPath.row != menuArray.count-1 {
+            selectedIndex = indexPath.row
+            
+            rotationToRight(indexPath: indexPath)
         }
-        
         self.basketTableView.beginUpdates()
         self.basketTableView.endUpdates()
     }
     
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if selectedIndex == indexPath.row && indexPath.row != menuArray.count-1 {
+            selectedIndex = indexPath.row
+            
+            rotationToHomePlace(indexPath: indexPath)
+        }
+    }
     
     
-    //MARK: - Function
-    func registerForKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    
+    
+    func rotationToRight(indexPath: IndexPath) {
+        if indexPath.row == 0 || indexPath.row == 1{
+            let cell = self.basketTableView.cellForRow(at: indexPath) as! PersonalInformationTableViewCell
+            cell.sectionImage.image = UIImage(cgImage: (cell.sectionImage.image!.cgImage!), scale: CGFloat(1.0), orientation: .right)
+            
+        } else if indexPath.row == 2 {
+            let cell = self.basketTableView.cellForRow(at: indexPath) as! SpecialOfferTableViewCell
+            cell.sectionImage.image = UIImage(cgImage: (cell.sectionImage.image!.cgImage!), scale: CGFloat(1.0), orientation: .right)
+        } else if indexPath.row == 3 {
+            let cell = self.basketTableView.cellForRow(at: indexPath) as! ProductTableViewCell
+            cell.sectionImage.image = UIImage(cgImage: (cell.sectionImage.image!.cgImage!), scale: CGFloat(1.0), orientation: .right)
+        }
     }
-    func removeKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    func rotationToHomePlace(indexPath: IndexPath) {
+        if indexPath.row == 0 || indexPath.row == 1 {
+            let cell = self.basketTableView.cellForRow(at: indexPath) as! PersonalInformationTableViewCell
+            cell.sectionImage.image = UIImage(named: "checker")
+        } else if indexPath.row == 2 {
+            let cell = self.basketTableView.cellForRow(at: indexPath) as! SpecialOfferTableViewCell
+            cell.sectionImage.image = UIImage(named: "checker")
+        } else if indexPath.row == 3 {
+            let cell = self.basketTableView.cellForRow(at: indexPath) as! ProductTableViewCell
+            cell.sectionImage.image = UIImage(named: "checker")
+        }
     }
-    func keyboardWillShow(notification: Notification) {
-        let userInfo = notification.userInfo
-        let keyboardFrameSize = (userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        scrollVIew.contentOffset = CGPoint(x: 0, y: keyboardFrameSize.height)
-    }
-    func keyboardWillHide() {
-        scrollVIew.contentOffset = CGPoint.zero
-    }
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        self.enterEmailTextField.resignFirstResponder()
+    
+    //MARK: - Settings
+    
+    override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    
-    
-    
-    
-    //MARK: - Settings
     func navigationBarSettings() {
         //Инициализируем навигационную панель через текущий navigationController нашего класса
         let navigationBar = self.navigationController?.navigationBar

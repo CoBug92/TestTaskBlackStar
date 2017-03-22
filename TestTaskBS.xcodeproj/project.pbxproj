@@ -17,7 +17,7 @@
 		43FC29E71E7FB73600ABC598 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43FC29E61E7FB73600ABC598 /* Assets.xcassets */; };
 		43FC29EA1E7FB73600ABC598 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43FC29E81E7FB73600ABC598 /* LaunchScreen.storyboard */; };
 		43FC29F31E7FD22400ABC598 /* Druk Wide Cy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43FC29F21E7FD1F800ABC598 /* Druk Wide Cy-Medium.ttf */; };
-		43FC29F51E7FDEEE00ABC598 /* OrderingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FC29F41E7FDEEE00ABC598 /* OrderingTableViewCell.swift */; };
+		43FC29F51E7FDEEE00ABC598 /* PersonalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FC29F41E7FDEEE00ABC598 /* PersonalInformationTableViewCell.swift */; };
 		43FC29F81E7FFA7500ABC598 /* SF-UI-Display-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43FC29F61E7FFA5F00ABC598 /* SF-UI-Display-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +34,7 @@
 		43FC29E91E7FB73600ABC598 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43FC29EB1E7FB73600ABC598 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43FC29F21E7FD1F800ABC598 /* Druk Wide Cy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Druk Wide Cy-Medium.ttf"; sourceTree = "<group>"; };
-		43FC29F41E7FDEEE00ABC598 /* OrderingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderingTableViewCell.swift; sourceTree = "<group>"; };
+		43FC29F41E7FDEEE00ABC598 /* PersonalInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInformationTableViewCell.swift; sourceTree = "<group>"; };
 		43FC29F61E7FFA5F00ABC598 /* SF-UI-Display-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +52,7 @@
 		43BA464C1E81722C008A2030 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				43FC29F41E7FDEEE00ABC598 /* OrderingTableViewCell.swift */,
+				43FC29F41E7FDEEE00ABC598 /* PersonalInformationTableViewCell.swift */,
 				435F19F11E8148EC00FCDDA9 /* SpecialOfferTableViewCell.swift */,
 				43BA464D1E81B6D9008A2030 /* ProductTableViewCell.swift */,
 				4307812D1E828C8600DFD4B8 /* OfferTableViewCell.swift */,
@@ -189,7 +189,7 @@
 				435F19F21E8148EC00FCDDA9 /* SpecialOfferTableViewCell.swift in Sources */,
 				43FC29E21E7FB73600ABC598 /* BasketViewController.swift in Sources */,
 				43FC29E01E7FB73600ABC598 /* AppDelegate.swift in Sources */,
-				43FC29F51E7FDEEE00ABC598 /* OrderingTableViewCell.swift in Sources */,
+				43FC29F51E7FDEEE00ABC598 /* PersonalInformationTableViewCell.swift in Sources */,
 				43BA464E1E81B6DA008A2030 /* ProductTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

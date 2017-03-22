@@ -1,29 +1,27 @@
 //
-//  SpecialOfferTableViewCell.swift
+//  OrderingTableViewCell.swift
 //  TestTaskBS
 //
-//  Created by Bogdan Kostyuchenko on 21.03.17.
+//  Created by Bogdan Kostyuchenko on 20.03.17.
 //  Copyright © 2017 Bogdan Kostyuchenko. All rights reserved.
 //
 
 import UIKit
 
-class SpecialOfferTableViewCell: UITableViewCell {
+class PersonalInformationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var firstView: UIView!
     @IBOutlet weak var sectionImage: UIImageView!
     @IBOutlet weak var sectionNameLabel: UILabel!
     
     @IBOutlet weak var secondView: UIView!
-    @IBOutlet weak var specialOfferImage: UIImageView!
-    @IBOutlet weak var specialOfferLabel: UILabel!
-    @IBOutlet weak var readMoreButton: UIButton!
+    @IBOutlet weak var firstTextField: UITextField!
+    @IBOutlet weak var secondTextField: UITextField!
+    @IBOutlet weak var thirdTextField: UITextField!
+    
     
     
     @IBOutlet weak var secondViewHeighConstraint: NSLayoutConstraint!
-    
-    
-    
     
     
     
@@ -35,23 +33,19 @@ class SpecialOfferTableViewCell: UITableViewCell {
     }
     
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        designFor(button: readMoreButton)
+        designFor(textField: firstTextField)
+        designFor(textField: secondTextField)
+        designFor(textField: thirdTextField)
     }
-    
-    
-    
-    func designFor(button: UIButton) {
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(colorLiteralRed: 142 / 255, green: 110 / 255, blue: 81 / 255, alpha: 1.0).cgColor
-        button.layer.masksToBounds = true
+
+    func designFor(textField: UITextField) {
+        textField.layer.sublayerTransform = CATransform3DMakeTranslation(23, 0, 0)
     }
-    
 }
